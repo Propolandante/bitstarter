@@ -61,7 +61,9 @@ var checkHtml = function(html, checksfile) {
 
 var check = function(file, url, checksfile) {
 	if (file) { //using a file
-		return checkHtml(cheerioFile(file), checksfile);
+		if (!url) {
+			return checkHtml(cheerioFile(file), checksfile);
+			}
 		}
 	else if (url) { //using a url
 		rest.get(url).on('complete', function(result) {
@@ -69,9 +71,9 @@ var check = function(file, url, checksfile) {
 			return checkHtml(cheerioURL(result), checksfile);
 			});
 		}
-	else { //something is wrong, we have no HTML to check
+	 else { //something is wrong, we have no HTML to check
 		console.error("\nNo file or URL to check\n");
-		}
+		} 
 };
 
 var clone = function(fn) {
